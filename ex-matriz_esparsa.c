@@ -12,16 +12,42 @@ struct linha
 {
 	int numero;
 	int coluna
-	struct item *prox;
+	struct linha *prox;
 }
 
-void insert(int k, int m, int n, struct coluna *pont)
+void insert(int k, int m, int n, struct coluna *raiz)
 {
+	struct linha *a = NULL;
+	struct linha *b = NULL
+	struct coluna *pont = raiz;
+	int i = 0; 
+	
 	while(pont->linha != m)
 	{
 		pont = pont->prox;
 	}
-	
+	if (pont->line == NULL)
+	{
+		a = (struct linha*) malloc(sizeof(struct linha));
+		a->numero = k;
+		a->coluna = n; 
+		a->prox = NULL;
+		pont->line = a;
+	}
+	else 
+	{
+		a = pont->line;
+		while(a->prox != NULL && a->coluna < n)
+		{
+			a = a->prox;
+			//i++;
+		}
+		b = (struct linha*) malloc(sizeof(struct linha));
+		b->numero = k;
+		b->coluna = n;
+		b->prox = a->prox;
+		a->prox = b;
+	}
 }
 
 int main ()
