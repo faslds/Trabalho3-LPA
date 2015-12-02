@@ -107,20 +107,22 @@ int main ()
 {
 	int a, b, c, m, n, i, j, escolha, quantidade, count = 0;
 	printf("Qual o tamanho da sua matriz? \nDigite na seguinte ordem: numero de linhas, ENTER, numero de colunas, ENTER\n");
-	printf("Linhas: ");
-	scanf("%d", &m);
+	//printf("Linhas: ");
+	scanf("%d%d", &m, &n);
 	while (m < 1)
 	{
-		printf("Favor entrar com um numero maior do que 0");
-		scanf("%d", &m);
+		printf("Favor entrar com um numero maior do que 0 para as linhas");
+		//scanf("%d", &m);
+		scanf("%d%d", &m, &n);
 	}
-	printf("\nColunas: ");
-	scanf("&d", &n);
+	//printf("\nColunas: ");
+	//scanf("&d", &n);
 	
 	while (n < 1)
 	{
-		printf("Favor entrar com um numero maior do que 0");
-		scanf("%d", &n);
+		printf("Favor entrar com um numero maior do que 0 para as colunas");
+		//scanf("%d", &n);
+		scanf("%d%d", &m, &n);
 	}
 	struct coluna *raiz = (struct coluna *)malloc(sizeof(struct coluna));
 	struct coluna *pont = raiz;
@@ -139,11 +141,11 @@ int main ()
 	{
 		printf("\n\nO que voce deseja fazer? Digite o numero correspondente!\n");
 		printf("1 - Adicionar numeros\n2 - Excluir numeros\n3 - Consultar um valor na posicao ij\n");
-		printf("\n4 - Soma dos valores de uma linha\n5 - Soma dos valores de uma coluna\n6 - Sair\n");
+		printf("4 - Soma dos valores de uma linha\n5 - Soma dos valores de uma coluna\n6 - Sair\n\n");
 		scanf("%d", &escolha);
 		if (escolha != 1 && count == 0)
 		{
-			printf("Nao existe nenhum numero na sua matriz, favor adicionar numeros. Escolha a opcao 1 e aperte 'Enter'");
+			printf("\nNao existe nenhum numero na sua matriz, favor adicionar numeros.\nEscolha a opcao 1 e aperte 'Enter'");
 			//scanf("%d", &escolha);
 		}
 		else if (escolha < 1 || escolha > 6)
@@ -168,9 +170,12 @@ int main ()
 					for (j = 1; j <= quantidade; j++)
 					{
 						printf("\nNumero %d: ", j);
-						scanf("&d", &a);
-						scanf("&d", &b);
-						scanf("&d", &c);
+						//printf("AQUI");
+						scanf("%d%d%d", &a, &b, &c);
+						//scanf("&d", &a);
+						//scanf("&d", &b);
+						//scanf("&d", &c);
+						//printf("AQUI 2");
 						insert(a, b, c, raiz);
 					}
 			}
