@@ -4,18 +4,18 @@
 struct linha
 {
 	int numero;
-	int coluna
+	int coluna;
 	struct linha *prox;
-}
+};
 
 struct coluna
 {
 	int linha;
 	struct linha *line;
 	struct coluna *prox;
-}
+};
 
-int remove (struct coluna *raiz, int m, int n)
+int removenum(struct coluna *raiz, int m, int n)
 {
 	struct linha *a = NULL;
 	struct linha *b = NULL;
@@ -57,11 +57,10 @@ int remove (struct coluna *raiz, int m, int n)
 }
 
 
-
 void insert(int k, int m, int n, struct coluna *raiz)
 {
 	struct linha *a = NULL;
-	struct linha *b = NULL
+	struct linha *b = NULL;
 	struct coluna *pont = raiz;
 	int i = 0; 
 	
@@ -107,18 +106,20 @@ void insert(int k, int m, int n, struct coluna *raiz)
 int main ()
 {
 	int a, b, c, m, n, i, j, escolha, quantidade, count = 0;
-	printf("Qual o tamanho da sua matriz? Digite na seguinte ordem: ´numero de linhas´ ´ENTER´ ´numero de colunas´ ´ENTER´");
+	printf("Qual o tamanho da sua matriz? \nDigite na seguinte ordem: numero de linhas, ENTER, numero de colunas, ENTER\n");
+	printf("Linhas: ");
 	scanf("%d", &m);
 	while (m < 1)
 	{
-		printf("Favor entrar com um número maior do que 0");
+		printf("Favor entrar com um numero maior do que 0");
 		scanf("%d", &m);
-		
 	}
+	printf("\nColunas: ");
 	scanf("&d", &n);
+	
 	while (n < 1)
 	{
-		printf("Favor entrar com um número maior do que 0");
+		printf("Favor entrar com um numero maior do que 0");
 		scanf("%d", &n);
 	}
 	struct coluna *raiz = (struct coluna *)malloc(sizeof(struct coluna));
@@ -138,7 +139,7 @@ int main ()
 	{
 		printf("\n\nO que voce deseja fazer? Digite o numero correspondente!\n");
 		printf("1 - Adicionar numeros\n2 - Excluir numeros\n3 - Consultar um valor na posicao ij\n");
-		printf("\n4 - Soma dos valores de uma linha\n5 - Soma dos valores de uma coluna\n6 - Sair");
+		printf("\n4 - Soma dos valores de uma linha\n5 - Soma dos valores de uma coluna\n6 - Sair\n");
 		scanf("%d", &escolha);
 		if (escolha != 1 && count == 0)
 		{
