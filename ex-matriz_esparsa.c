@@ -15,7 +15,7 @@ struct coluna
 	struct coluna *prox;
 }
 
-void remove (struct coluna *raiz, int m, int n)
+int remove (struct coluna *raiz, int m, int n)
 {
 	struct linha *a = NULL;
 	struct linha *b = NULL;
@@ -47,6 +47,7 @@ void remove (struct coluna *raiz, int m, int n)
 		b->prox = a->prox;
 		printf("O número %d foi removido com sucesso!", a->numero);
 		free(a);
+		return 0;
 	}
 	else
 	{
@@ -105,7 +106,7 @@ void insert(int k, int m, int n, struct coluna *raiz)
 
 int main ()
 {
-	int m, n, i, escolha;
+	int a, b, c, m, n, i, j, escolha, quantidade, count = 0;
 	printf("Qual o tamanho da sua matriz? Digite na seguinte ordem: ´numero de linhas´ ´ENTER´ ´numero de colunas´ ´ENTER´");
 	scanf("%d", &m);
 	while (m < 1)
@@ -133,9 +134,45 @@ int main ()
 		pont->prox = NULL;
 		pont->linha = i;
 	}
-	while (escolha != )
+	while (escolha != 6)
 	{
 		printf("\n\nO que voce deseja fazer? Digite o numero correspondente!\n");
-		printf("")
+		printf("1 - Adicionar numeros\n2 - Excluir numeros\n3 - Consultar um valor na posicao ij\n");
+		printf("\n4 - Soma dos valores de uma linha\n5 - Soma dos valores de uma coluna\n6 - Sair");
+		scanf("%d", &escolha);
+		if (escolha != 1 && count == 0)
+		{
+			printf("Nao existe nenhum numero na sua matriz, favor adicionar numeros. Escolha a opcao 1 e aperte 'Enter'");
+			//scanf("%d", &escolha);
+		}
+		else if (escolha < 1 || escolha > 6)
+		{
+			printf("Favor entrar com uma das opcoes do menu");
+		}
+		else
+		{
+			switch(escolha)
+			{
+				case 1:
+					printf("\nQuantos numeros voce quer inserir na sua matriz?\n");
+					scanf("%d", &quantidade);
+					while (quantidade < 1)
+					{
+						printf("Favor entrar com uma quantidade maior do que 0");
+						scanf("%d", &quantidade);
+					}
+					count++;
+					printf("\nDigite seus numeros, seguido de sua posicao:\n");
+					printf("(Digite na seguinte ordem: 'numero' 'ENTER' 'numero da linha' 'ENTER' 'numero da coluna' 'ENTER')");
+					for (j = 1; j <= quantidade; j++)
+					{
+						printf("\nNumero %d: ", j);
+						scanf("&d", &a);
+						scanf("&d", &b);
+						scanf("&d", &c);
+						insert(a, b, c, raiz);
+					}
+			}
+		}
 	}
 }
