@@ -129,12 +129,34 @@ int consulta(struct coluna *raiz, int m, int n)
 	}
 	if(a->coluna == n)
 	{
-		return 1;
+		return(a->numero);
 	}
 	else if(a->coluna != n)
 	{
 		return 0;
 	}
+}
+
+int sumlinha(struct coluna *raiz, int k)
+{
+	struct coluna *pont = raiz;
+	struct linha *a = NULL;
+	int soma = 0;
+	while(pont->linha != k)
+	{
+		pont = pont->prox;
+	}
+	if (pont->line == NULL)
+	{
+		return 0;
+	}
+	a = pont->line;
+	while(a != NULL)
+	{
+		soma = soma + a->numero;
+		a = a->prox;
+	}
+	return (soma);
 }
 
 int main ()
@@ -218,21 +240,32 @@ int main ()
 					printf("Digite o numero da linha e o numero da coluna do numero que voce deseja excluir, separados por 'ENTER':\n");
 					scanf("%d%d", &a, &b);
 					c = removenum(raiz, a, b);
-					if(c == -1)
+					if(c == 0)
 					{
 						printf("O numero escolhido era 0, entao nada foi feito");
 					}
 					break;
 				
 				case 3:
-					printf("Digite os valores i e j (a linha e a coluna do numero a ser consultado, respectivamente.\nSepareos com um 'Enter')\n");
+					printf("Digite os valores i e j (a linha e a coluna do numero a ser consultado,\nrespectivamente. Separe-os com um 'Enter')\n");
 					scanf("%d%d", &a, &b);
 					if(a >= m || b>= n)
 					{
-						printf("Favor digitar uma posicao que pertenca a matriz.\nLembrar que as linhas e colunas sao numeradas com inicio em 0,/nentao uma matriz de 3 coluans tem numeracao 0, 1, 2.");
+						printf("\nFavor digitar uma posicao que pertenca a matriz.\nLembrar que as linhas e colunas sao numeradas com inicio em 0,\nentao uma matriz de 3 colunas tem numeracao 0, 1, 2.");
 					break;	
 					}
-					
+					printf("\nO numero na posicao %dx%d eh %d.", a, b, consulta(raiz, a, b));
+					break;
+				
+				case 4:
+					printf("\nDigite o numero da linha que deseja somar.\nLembrar que as linhas e sao numeradas com inicio em 0,\nentao uma matriz de 3 linhas tem numeracao 0, 1, 2.\n");
+					scanf("%d", &a);
+					if(a >= m )
+					{
+						printf("\nFavor digitar uma posicao que pertenca a matriz.\n");
+					break;	
+					}
+					printf("\nA soma dos numeros da linha %d eh %d", a, sumlinha(raiz, a));
 			}
 		}
 	}
