@@ -25,7 +25,9 @@ int removenum(struct coluna *raiz, int m, int n)
 	{
 		pont = pont->prox;
 	}
+	//printf("AQUI");
 	a = pont->line;
+	b = pont;
 	//b = pont->line;
 	
 	//if testar se existe alguma coisa na linha
@@ -42,18 +44,24 @@ int removenum(struct coluna *raiz, int m, int n)
 			return -1;
 		}
 	}
+	//printf("AQUI2");
+	//	printf("O numero %d ", a->numero);
 	if(a->coluna == n)
 	{
+		//printf("\nAQUI 2,5\n");
 		b->prox = a->prox;
-		printf("O número %d foi removido com sucesso!", a->numero);
+		//printf("AQUI3");
+		printf("O numero %d foi removido com sucesso!", a->numero);
+		//printf("AQUI4");
 		free(a);
+		//printf("AQUI5");
 		return 0;
 	}
 	else
 	{
+		//printf("caiu no else");
 		return -1;
 	}
-	
 }
 
 
@@ -178,6 +186,16 @@ int main ()
 						//printf("AQUI 2");
 						insert(a, b, c, raiz);
 					}
+					break;
+				case 2:
+					printf("Digite o numero da linha e o numero da coluna do numero que voce deseja excluir, separados por 'ENTER':\n");
+					scanf("%d%d", &a, &b);
+					c = removenum(raiz, a, b);
+					if(c == -1)
+					{
+						printf("O numero escolhido era 0, entao nada foi feito");
+					}
+					break;
 			}
 		}
 	}
