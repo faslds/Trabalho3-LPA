@@ -41,7 +41,7 @@ int removenum(struct coluna *raiz, int m, int n)
 		}
 		else
 		{
-			return -1;
+			return 0;
 		}
 	}
 	//printf("AQUI2");
@@ -55,15 +55,14 @@ int removenum(struct coluna *raiz, int m, int n)
 		//printf("AQUI4");
 		free(a);
 		//printf("AQUI5");
-		return 0;
+		return 1;
 	}
 	else
 	{
 		//printf("caiu no else");
-		return -1;
+		return 0;
 	}
 }
-
 
 void insert(int k, int m, int n, struct coluna *raiz)
 {
@@ -108,6 +107,33 @@ void insert(int k, int m, int n, struct coluna *raiz)
 			b->prox = a->prox;
 			a->prox = b;
 		}
+	}
+}
+
+int consulta(struct coluna *raiz, int m, int n)
+{
+	struct coluna *pont = raiz;
+	struct linha *a = NULL;
+	while(pont->linha != m)
+	{
+		pont = pont->prox;
+	}
+	if(pont->line == NULL)
+	{
+		return 0;
+	}
+	a = pont->line;
+	while(a->coluna < n)
+	{
+		a = a->prox;
+	}
+	if(a->coluna == n)
+	{
+		return 1;
+	}
+	else if(a->coluna != n)
+	{
+		return 0;
 	}
 }
 
@@ -187,6 +213,7 @@ int main ()
 						insert(a, b, c, raiz);
 					}
 					break;
+				
 				case 2:
 					printf("Digite o numero da linha e o numero da coluna do numero que voce deseja excluir, separados por 'ENTER':\n");
 					scanf("%d%d", &a, &b);
@@ -196,6 +223,16 @@ int main ()
 						printf("O numero escolhido era 0, entao nada foi feito");
 					}
 					break;
+				
+				case 3:
+					printf("Digite os valores i e j (a linha e a coluna do numero a ser consultado, respectivamente.\nSepareos com um 'Enter')\n");
+					scanf("%d%d", &a, &b);
+					if(a >= m || b>= n)
+					{
+						printf("Favor digitar uma posicao que pertenca a matriz.\nLembrar que as linhas e colunas sao numeradas com inicio em 0,/nentao uma matriz de 3 coluans tem numeracao 0, 1, 2.");
+					break;	
+					}
+					
 			}
 		}
 	}
