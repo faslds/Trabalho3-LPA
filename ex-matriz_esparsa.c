@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<math.h>
 
 struct linha
 {
@@ -181,10 +182,37 @@ int sumcoluna(struct coluna *raiz, int k)
 		pont = pont->prox;
 	}
 	return (soma);
-	
 }
 
-int main ()
+check(struct coluna *raiz, int m, int n)
+{
+	struct coluna *pont = raiz;
+	struct linha *a = NULL;
+	int c = 0;
+	while (pont != NULL)
+	{
+		a = pont->line;
+		while(a != NULL)
+		{
+			if(pont->linha == a->coluna)
+			{
+				c = c - abs(a->numero);
+			}
+			else if(pont->linha != a->coluna)
+			{
+				c = c + abs(a->numero);
+			}
+		}
+		if(c < 0)
+		{
+			printf("\nA matriz nao eh diagonal dominante, entao esse metodo de solucao nao ira convergir para o resultado correto.\n");
+			return 0;
+		}
+		pont = pont->prox;
+	}
+}
+
+int main()
 {
 	int a, b, c, m, n, i, j, escolha, quantidade, count = 0;
 	printf("Ola! Este programa ira criar uma matriz esparsa.\n");
