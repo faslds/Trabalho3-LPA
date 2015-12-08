@@ -187,7 +187,8 @@ int sumcoluna(struct coluna *raiz, int k)
 int main ()
 {
 	int a, b, c, m, n, i, j, escolha, quantidade, count = 0;
-	printf("Qual o tamanho da sua matriz? \nDigite na seguinte ordem: numero de linhas, ENTER, numero de colunas, ENTER\n");
+	printf("Ola! Este programa ira criar uma matriz esparsa.\n");
+	printf("Qual o tamanho da sua matriz? \nDigite na seguinte ordem: numero de linhas, ENTER, numero de colunas, ENTER.\n");
 	//printf("Linhas: ");
 	scanf("%d%d", &m, &n);
 	while (m < 1)
@@ -283,7 +284,7 @@ int main ()
 					break;
 				
 				case 4:
-					printf("\nDigite o numero da linha que deseja somar.\nLembrar que as linhas e sao numeradas com inicio em 0,\nentao uma matriz de 3 linhas tem numeracao 0, 1, 2.\n");
+					printf("\nDigite o numero da linha que deseja somar.\nLembrar que as linhas sao numeradas com inicio em 0,\nentao uma matriz de 3 linhas tem numeracao 0, 1, 2.\n");
 					scanf("%d", &a);
 					if(a >= m )
 					{
@@ -291,6 +292,18 @@ int main ()
 					break;	
 					}
 					printf("\nA soma dos numeros da linha %d eh %d", a, sumlinha(raiz, a));
+					break;
+				
+				case 5:
+					printf("\nDigite o numero da linha que deseja somar.\nLembrar que as colunas sao numeradas com inicio em 0,\nentao uma matriz de 3 colunas tem numeracao 0, 1, 2.\n");
+					scanf("%d", &b);
+					if(b >= n )
+					{
+						printf("\nFavor digitar uma posicao que pertenca a matriz.\n");
+					break;	
+					}
+					printf("\nA soma dos numeros da coluna %d eh %d", b, sumcoluna(raiz, b));
+					break;
 			}
 		}
 	}
