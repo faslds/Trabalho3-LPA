@@ -159,6 +159,31 @@ int sumlinha(struct coluna *raiz, int k)
 	return (soma);
 }
 
+int sumcoluna(struct coluna *raiz, int k)
+{
+	struct coluna *pont = raiz;
+	struct linha *a = pont->line;
+	int soma = 0;
+	while (pont != NULL)
+	{
+		a = pont->line;
+		if(a != NULL)
+		{ 
+			while(a->coluna < k && a != NULL)
+			{
+				a = a->prox;
+			}
+			if(a->coluna == k)
+			{
+				soma = soma + a->numero;
+			}
+		}
+		pont = pont->prox;
+	}
+	return (soma);
+	
+}
+
 int main ()
 {
 	int a, b, c, m, n, i, j, escolha, quantidade, count = 0;
