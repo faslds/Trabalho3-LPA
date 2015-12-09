@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
-#define R 100
+#define R 10
 
 struct linha
 {
@@ -185,7 +185,7 @@ int sumcoluna(struct coluna *raiz, int k)
 	return (soma);
 }
 
-check(struct coluna *raiz, int n)
+int check(struct coluna *raiz, int n)
 {
 	struct coluna *pont = raiz;
 	struct linha *a = NULL;
@@ -218,9 +218,10 @@ check(struct coluna *raiz, int n)
 	}
 }
 
-float calc(struct coluna *raiz, int *vet, int k, int m, int n)
+float calc(struct coluna *raiz, float *vet, int k, int m, int n)
 {
 	float c = consulta(raiz, k, n-1);
+	//printf("\nvalor de c em calc %f", c);
 	float b = 0;
 	int i;
 	struct linha *a = raiz->line;
@@ -228,7 +229,9 @@ float calc(struct coluna *raiz, int *vet, int k, int m, int n)
 	{
 		if(a->coluna != k && i == a->coluna)
 		{
+			//printf("\n\ncalc vet[%d] = %f", i, vet[i]);
 			b = b + (a->numero)*vet[i];
+			//printf("\n\ncalc b = %f", b);
 		}
 		a = a->prox; 
 	}
@@ -237,7 +240,7 @@ float calc(struct coluna *raiz, int *vet, int k, int m, int n)
 	return(b);
 }
 
-gauss(struct coluna *raiz, int m, int n)
+void gauss(struct coluna *raiz, int m, int n)
 {
 	int i, j;
 	float vet[m];
@@ -246,13 +249,17 @@ gauss(struct coluna *raiz, int m, int n)
 	{
 		vet[i] = 0;
 	}
+	
 	for(j = 0; j <= R; j++)
 	{
+		pont = raiz;
 		for(i = 0; i < m; i++)
 		{
 			vet[i] = calc(pont, vet, i, m, n);
+			//printf("\n\n  vet[%d] = %f\n\n", i, vet[i]);
 			pont = pont->prox;
 		}
+		//printf("\nsaiu do for de dentro\n");
 	}
 	printf("\nA solucao do seu sistema eh:\n");
 	for(i = 0; i < m; i++)
@@ -389,10 +396,12 @@ int main()
 						printf("A matriz nao tem formato n x n+1, favor entrar novamente com a matriz");
 						break;
 					}
+					//printf("AQUI 1");
 					if(check(raiz, n) == 0)
 					{
 						break;
 					}
+					//printf("AQUI 2");
 					gauss(raiz, m, n);
 					break;
 			}
