@@ -184,7 +184,7 @@ int sumcoluna(struct coluna *raiz, int k)
 	return (soma);
 }
 
-check(struct coluna *raiz, int m, int n)
+check(struct coluna *raiz)
 {
 	struct coluna *pont = raiz;
 	struct linha *a = NULL;
@@ -210,6 +210,30 @@ check(struct coluna *raiz, int m, int n)
 		}
 		pont = pont->prox;
 	}
+}
+
+calc(struct coluna *raiz, int *vet, int k, int m, int n)
+{
+	int i;
+	for(i = 0; i<n; i++)
+	{
+		vet[]
+	}
+}
+
+gauss(struct coluna *raiz, int m, int n)
+{
+	int i;
+	float vet[m];
+	for(i = 0; i < m; i++)
+	{
+		vet[i] = 0;
+	}
+		
+		for(i = 0; i < m; i++)
+		{
+			vet[i] = 
+		}
 }
 
 int main()
