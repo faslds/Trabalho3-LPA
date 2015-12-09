@@ -212,27 +212,39 @@ check(struct coluna *raiz)
 	}
 }
 
-calc(struct coluna *raiz, int *vet, int k, int m, int n)
+float calc(struct coluna *raiz, int *vet, int k, int m, int n)
 {
+	float c = (float *) consulta(raiz, k, n-1);
+	float b = 0;
 	int i;
+	struct linha *a = raiz->line;
 	for(i = 0; i<n; i++)
 	{
-		vet[]
+		if(a->coluna != k)
+		{
+			b = b - (a->numero)*vet[i];
+			a = a->prox; 
+		}
 	}
+	b = c - b;
+	b = b/consulta(raiz, k, k);
+	return(b);
 }
 
 gauss(struct coluna *raiz, int m, int n)
 {
 	int i;
 	float vet[m];
+	struct coluna *pont = raiz;
 	for(i = 0; i < m; i++)
 	{
 		vet[i] = 0;
 	}
-		
+		for(ate 200 ??)
 		for(i = 0; i < m; i++)
 		{
-			vet[i] = 
+			vet[i] = calc(pont, vet, i, m, n)
+			pont = pont->prox;
 		}
 }
 
