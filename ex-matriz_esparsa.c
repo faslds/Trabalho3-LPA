@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
+#define R 100
 
 struct linha
 {
@@ -184,7 +185,7 @@ int sumcoluna(struct coluna *raiz, int k)
 	return (soma);
 }
 
-check(struct coluna *raiz)
+check(struct coluna *raiz, int n)
 {
 	struct coluna *pont = raiz;
 	struct linha *a = NULL;
@@ -198,33 +199,38 @@ check(struct coluna *raiz)
 			{
 				c = c - abs(a->numero);
 			}
-			else if(pont->linha != a->coluna)
+			else if(pont->linha != a->coluna && a->coluna != n-1)
 			{
 				c = c + abs(a->numero);
 			}
+			a = a->prox;
 		}
-		if(c < 0)
+		if(c > 0)
 		{
 			printf("\nA matriz nao eh diagonal dominante, entao esse metodo de solucao nao ira convergir para o resultado correto.\n");
 			return 0;
 		}
 		pont = pont->prox;
 	}
+	if(c <= 0)
+	{
+		return(1);
+	}
 }
 
 float calc(struct coluna *raiz, int *vet, int k, int m, int n)
 {
-	float c = (float *) consulta(raiz, k, n-1);
+	float c = consulta(raiz, k, n-1);
 	float b = 0;
 	int i;
 	struct linha *a = raiz->line;
-	for(i = 0; i<n; i++)
+	for(i = 0; i<n -1; i++)
 	{
-		if(a->coluna != k)
+		if(a->coluna != k && i == a->coluna)
 		{
-			b = b - (a->numero)*vet[i];
-			a = a->prox; 
+			b = b + (a->numero)*vet[i];
 		}
+		a = a->prox; 
 	}
 	b = c - b;
 	b = b/consulta(raiz, k, k);
@@ -233,19 +239,26 @@ float calc(struct coluna *raiz, int *vet, int k, int m, int n)
 
 gauss(struct coluna *raiz, int m, int n)
 {
-	int i;
+	int i, j;
 	float vet[m];
 	struct coluna *pont = raiz;
 	for(i = 0; i < m; i++)
 	{
 		vet[i] = 0;
 	}
-		for(ate 200 ??)
+	for(j = 0; j <= R; j++)
+	{
 		for(i = 0; i < m; i++)
 		{
-			vet[i] = calc(pont, vet, i, m, n)
+			vet[i] = calc(pont, vet, i, m, n);
 			pont = pont->prox;
 		}
+	}
+	printf("\nA solucao do seu sistema eh:\n");
+	for(i = 0; i < m; i++)
+	{
+		printf("\nX%d: %.3f", i, vet[i]);
+	}
 }
 
 int main()
@@ -283,11 +296,12 @@ int main()
 		pont->prox = NULL;
 		pont->linha = i;
 	}
-	while (escolha != 6)
+	while (escolha != 7)
 	{
 		printf("\n\nO que voce deseja fazer? Digite o numero correspondente!\n");
 		printf("1 - Adicionar numeros\n2 - Excluir numeros\n3 - Consultar um valor na posicao ij\n");
-		printf("4 - Soma dos valores de uma linha\n5 - Soma dos valores de uma coluna\n6 - Sair\n\n");
+		printf("4 - Soma dos valores de uma linha\n5 - Soma dos valores de uma coluna\n6 - Resolucao do sistema por Gauss-Seidel\n7 - Sair\n");
+		printf("OBS: Para a resolucao por Guass-Seidel, a matriz precisa ter um formato n x n+1, representando um sistema de equacoes linerares\n\n");
 		scanf("%d", &escolha);
 		if (escolha != 1 && count == 0)
 		{
@@ -367,6 +381,19 @@ int main()
 					break;	
 					}
 					printf("\nA soma dos numeros da coluna %d eh %d", b, sumcoluna(raiz, b));
+					break;
+					
+				case 6:
+					if(n != m+1)
+					{
+						printf("A matriz nao tem formato n x n+1, favor entrar novamente com a matriz");
+						break;
+					}
+					if(check(raiz, n) == 0)
+					{
+						break;
+					}
+					gauss(raiz, m, n);
 					break;
 			}
 		}
