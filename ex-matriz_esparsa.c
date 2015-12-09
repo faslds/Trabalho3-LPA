@@ -1,8 +1,10 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
-#define R 10
+#define R 100
 
+/* A struct linha armazenara as linhas da matriz
+e representarão linhas encadeadas "horizontais" */
 struct linha
 {
 	int numero;
@@ -10,6 +12,8 @@ struct linha
 	struct linha *prox;
 };
 
+/* A struct coluna sera a lista base, sera uma lista encadeada 
+"vertical" para apontar para as listas "horizontais" */
 struct coluna
 {
 	int linha;
@@ -17,78 +21,80 @@ struct coluna
 	struct coluna *prox;
 };
 
+/* A funcao para remover numeros funciona como uma remocao de 
+um item de uma lista encadeada. O antecessor do item a ser removido
+passa a apontar para seu sucessor, e a memoria do item removido
+eh liberada. */
 int removenum(struct coluna *raiz, int m, int n)
 {
 	struct linha *a = NULL;
 	struct linha *b = NULL;
 	struct linha *c = NULL;
 	struct coluna *pont = raiz;
-	while(pont->linha != m)
+	while(pont->linha != m)//chega na linha desejada
 	{
 		pont = pont->prox;
 	}
-	//printf("AQUI");
 	a = pont->line;
-	b = pont;
-	//b = pont->line;
-	
-	//if testar se existe alguma coisa na linha
-	
-	while(a->coluna > n)
+	b = pont;	
+	if(a == NULL)//se nada existir nessa posicao, sai da funcao
 	{
-		if(a->prox != NULL)
+		return 0;
+	}
+	else
+	{
+		while(a->coluna > n)//chega no numero desejado
 		{
-			b = a;
-			a = a->prox;
+			if(a->prox != NULL)
+			{
+				b = a;
+				a = a->prox;
+			}
+			else //caso o numero nao exista
+			{
+				return 0;
+			}
 		}
-		else
+		if(a->coluna == n) //remove o numero
+		{
+			b->prox = a->prox;
+			printf("O numero %d foi removido com sucesso!", a->numero);
+			free(a);//libera a memoria
+			return 1;
+		}
+		else //se o numero nao existir
 		{
 			return 0;
 		}
 	}
-	//printf("AQUI2");
-	//	printf("O numero %d ", a->numero);
-	if(a->coluna == n)
-	{
-		//printf("\nAQUI 2,5\n");
-		b->prox = a->prox;
-		//printf("AQUI3");
-		printf("O numero %d foi removido com sucesso!", a->numero);
-		//printf("AQUI4");
-		free(a);
-		//printf("AQUI5");
-		return 1;
-	}
-	else
-	{
-		//printf("caiu no else");
-		return 0;
-	}
 }
 
+/* A funcao de insercao funciona como a insecao em uma lista
+encadeada. Ela mantem a ordenacao de acordo com o numero da coluna
+de cada item. Isso facilita o processo da resolucao dos demais
+itens do trabalho. */
 void insert(int k, int m, int n, struct coluna *raiz)
 {
 	struct linha *a = NULL;
 	struct linha *b = NULL;
 	struct coluna *pont = raiz;
 	int i = 0; 
-	
-	while(pont->linha != m)
+	while(pont->linha != m) // chega na linha desejada
 	{
 		pont = pont->prox;
 	}
-	if (pont->line == NULL)
+	if (pont->line == NULL) //se nao houver nada na linha, ja aloca o espaco para o novo item
 	{
-		a = (struct linha*) malloc(sizeof(struct linha));
+		a = (struct linha*) malloc(sizeof(struct linha)); //aloca a memoria
 		a->numero = k;
 		a->coluna = n; 
-		a->prox = NULL;
+		a->prox = NULL; // aterra o ponteiro 
 		pont->line = a;
 	}
-	else 
+	else //caso ja haja algo na linha
 	{
 		a = pont->line;
-		if (a->coluna > n)
+		if (a->coluna > n) //matem a ordenacao
 		{
 			b = (struct linha*) malloc(sizeof(struct linha));
 			b->numero = k;
@@ -98,75 +104,85 @@ void insert(int k, int m, int n, struct coluna *raiz)
 		}
 		else
 		{
-			while(a->prox != NULL && a->coluna < n)
+			while(a->prox != NULL && a->coluna < n) //chega na posicao desejada
 			{
 				a = a->prox;
-				//i++;
 			}
 			b = (struct linha*) malloc(sizeof(struct linha));
 			b->numero = k;
 			b->coluna = n;
-			b->prox = a->prox;
+			b->prox = a->prox; //mantem a ordenacao
 			a->prox = b;
 		}
 	}
 }
 
+/* A funcao de consulta funciona de maneira simples, ela chega ate a linha
+desejada, depois checa se a coluna existe ou nao. Como as listas das linhas
+estao ordenadas, basta percorrer ate que o numero da coluna seja maior do que
+o numero da coluna do numero que se deseja achar. */
 int consulta(struct coluna *raiz, int m, int n)
 {
 	struct coluna *pont = raiz;
 	struct linha *a = NULL;
-	while(pont->linha != m)
+	while(pont->linha != m) //chega na linha desejada
 	{
 		pont = pont->prox;
 	}
-	if(pont->line == NULL)
+	if(pont->line == NULL) 
 	{
-		return 0;
+		return 0; //nao existe o numero
 	}
 	a = pont->line;
-	while(a->coluna < n)
+	while(a->coluna < n) //procura a coluna desejada
 	{
 		a = a->prox;
 	}
 	if(a->coluna == n)
 	{
-		return(a->numero);
+		return(a->numero); //acha o numero e retorna ele
 	}
 	else if(a->coluna != n)
 	{
-		return 0;
+		return 0; //nao existe o numero
 	}
 }
 
+/* A soma de uma determinada linha eh feita de maneira simples, basta 
+chegar na linha desejada e somar cada um de seus elementos. Como os 
+elementos nao existentes sao zero, eles nao vao influenciar na soma. */
 int sumlinha(struct coluna *raiz, int k)
 {
 	struct coluna *pont = raiz;
 	struct linha *a = NULL;
 	int soma = 0;
-	while(pont->linha != k)
+	while(pont->linha != k) //chega na linha desejada
 	{
 		pont = pont->prox;
 	}
 	if (pont->line == NULL)
 	{
-		return 0;
+		return 0;//se nao existe nada na linha, sua soma eh zero
 	}
 	a = pont->line;
-	while(a != NULL)
+	while(a != NULL) //percorre a linha somando seus elementos
 	{
 		soma = soma + a->numero;
 		a = a->prox;
 	}
-	return (soma);
+	return (soma); //retorna o valor da soma
 }
 
+/* A funcao para somar os valores de uma coluna funciona de maneira 
+um pouco mais complexa. Ela percorre cada linha da matriz para achar 
+o elemento da coluna desejada. Ao encontra-lo, ela faz a soma e parte 
+para a proxima linha, e faz a busca e a soma novamente. */
 int sumcoluna(struct coluna *raiz, int k)
 {
 	struct coluna *pont = raiz;
 	struct linha *a = pont->line;
 	int soma = 0;
-	while (pont != NULL)
+	while (pont != NULL)//percorre todas as linhas (da lista base) ate chegar em NULL (fim da lista)
 	{
 		a = pont->line;
 		if(a != NULL)
