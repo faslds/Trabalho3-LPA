@@ -2,10 +2,13 @@
 Este repositório contém o exercício do terceiro trabalho da disciplina LPA
 
 Alunos:
-1. Felipe Augusto Senger Lopes de Souza - No USP: 5513317
-2. Bruno Henrique de Souza - No USP: 9311685
-3. André Luthold - No USP: 9022071
-4. Bruno Ávila - No USP: 9012667
+1 - Felipe Augusto Senger Lopes de Souza - No USP: 5513317
+
+2 - Bruno Henrique de Souza - No USP: 9311685
+
+3 - André Luthold - No USP: 9022071
+
+4 - Bruno Ávila - No USP: 9012667
 
 
 
