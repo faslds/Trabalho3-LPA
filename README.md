@@ -1,6 +1,14 @@
 ﻿# Trabalho3-LPA
 Este repositório contém o exercício do terceiro trabalho da disciplina LPA
 
+Alunos:
+1. Felipe Augusto Senger Lopes de Souza - No USP: 5513317
+2. Bruno Henrique de Souza - No USP: 9311685
+3. André Luthold - No USP: 9022071
+4. Bruno Ávila - No USP: 9012667
+
+
+
 O exercício foi desenvolvido no Windows 7 64 bits, no programa Dev C++. O compilador utilizado foi o default do Dev C++, v5.10, nas configurações TDM-GCC 4.8.1 64-bit Release. Todas as bibliotecas usadas foram as consideradas padrão do Dev C++.
 
 A compilação não requer nenhum parâmetro especial e o programa foi compilado usando o botão de compilação do Dev C++. 
